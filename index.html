@@ -11,7 +11,6 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      /* ── Palette écosystème ── */
       --navy: #1A2C4F;
       --navy-deep: #142340;
       --gold: #C28A42;
@@ -44,7 +43,6 @@
       --rxl: 22px;
     }
 
-    /* ══ MODE DYS ══════════════════════════════════════════════ */
     body.dys { font-family: 'OpenDyslexic', Arial, sans-serif !important; }
     body.dys .titre, body.dys .texte-intro, body.dys .consigne,
     body.dys .choix-btn, body.dys .btn, body.dys .fn,
@@ -56,7 +54,6 @@
     body.dys .choix-btn  { font-size: 20px !important; padding: 18px 34px !important; }
     body.dys .carte, body.dys .quiz-carte, body.dys .cours-carte { background: rgba(255,253,240,0.82) !important; }
 
-    /* ══ ANIMATIONS ════════════════════════════════════════════ */
     @keyframes gradientWave {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
@@ -71,6 +68,10 @@
       50%  { box-shadow: 0 6px 20px rgba(194,138,66,.30), 0 0 0 0 rgba(194,138,66,.10); }
       100% { box-shadow: 0 0 0 0 rgba(194,138,66,0); }
     }
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(194,138,66,0.45); }
+      50%     { box-shadow: 0 0 0 10px rgba(194,138,66,0); }
+    }
     @keyframes slideIn {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -80,7 +81,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ══ BASE ══════════════════════════════════════════════════ */
     html, body { height: 100%; }
     body {
       min-height: 100vh;
@@ -92,7 +92,6 @@
       background: var(--beige);
     }
 
-    /* ══ HEADER ════════════════════════════════════════════════ */
     .header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: center;
@@ -138,7 +137,80 @@
       background: var(--gold);
     }
 
-    /* ══ ÉCRANS ════════════════════════════════════════════════ */
+    /* Bouton audio toggle dans le header */
+    .header-audio-toggle {
+      position: absolute; left: 20px;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.7);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+      padding: 0;
+      line-height: 1;
+    }
+    .header-audio-toggle:hover {
+      background: var(--gold-pale);
+      border-color: var(--gold);
+      transform: scale(1.05);
+    }
+    .header-audio-toggle.active {
+      background: linear-gradient(180deg, var(--gold-l), var(--gold-deep));
+      border-color: var(--gold-deep);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(194,138,66,.30);
+    }
+    .header-audio-toggle.active.speaking {
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    /* Bouton audio toggle DANS LA CARTE D'ACCUEIL */
+    .audio-toggle-card {
+      margin-top: 8px;
+      padding: 10px 22px 10px 16px;
+      border-radius: 999px;
+      border: 1.5px solid var(--gold-soft);
+      background: var(--gold-pale);
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 13px; font-weight: 600;
+      color: var(--gold-deep);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -.05px;
+      transition: all .2s;
+    }
+    .audio-toggle-card .ico {
+      font-size: 16px;
+      width: 24px; height: 24px;
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.8);
+    }
+    .audio-toggle-card:hover {
+      background: var(--gold-soft);
+      border-color: var(--gold);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(194,138,66,.20);
+    }
+    .audio-toggle-card.active {
+      background: linear-gradient(180deg, var(--gold-l), var(--gold-deep));
+      border-color: var(--gold-deep);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(194,138,66,.30);
+    }
+    .audio-toggle-card.active .ico {
+      background: rgba(255,255,255,.25);
+    }
+    .audio-toggle-card.active.speaking {
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    body.dys .audio-toggle-card { font-family: 'OpenDyslexic', Arial, sans-serif !important; }
+
     .ecran { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 100vh; padding-top: 70px; }
     .ecran.cache { display: none; }
 
@@ -153,7 +225,6 @@
       animation: gradientWave 28s ease infinite;
     }
 
-    /* ══ CARTES ════════════════════════════════════════════════ */
     .carte {
       background: rgba(255,255,255,.62);
       backdrop-filter: blur(14px);
@@ -169,7 +240,6 @@
     }
     .carte.anime { animation: fadeUp 0.8s cubic-bezier(.22,1,.36,1) both; }
 
-    /* ══ BADGES ════════════════════════════════════════════════ */
     .badge {
       font-family: 'Inter Tight', sans-serif;
       font-size: 10.5px;
@@ -183,7 +253,6 @@
       border: 1px solid var(--gold-soft);
     }
 
-    /* ══ TITRES ════════════════════════════════════════════════ */
     .titre {
       font-family: 'Sora', sans-serif;
       font-size: clamp(24px,4.5vw,32px);
@@ -201,7 +270,6 @@
       letter-spacing: -.2px;
     }
 
-    /* ══ TEXTE D'INTRO ═════════════════════════════════════════ */
     .texte-intro {
       font-family: 'Inter Tight', sans-serif;
       font-size: 14.5px;
@@ -217,7 +285,6 @@
       font-weight: 700;
     }
 
-    /* ══ BOUTON PRINCIPAL ══════════════════════════════════════ */
     .btn {
       margin-top: 22px;
       padding: 14px 36px;
@@ -239,7 +306,6 @@
     }
     .btn:active { transform: translateY(0); }
 
-    /* ══ COURS ═════════════════════════════════════════════════ */
     .cours-carte {
       background: rgba(255,255,255,.70);
       backdrop-filter: blur(14px);
@@ -294,7 +360,6 @@
       width: 0%;
     }
 
-    /* ── Règle ── */
     .regle-bloc {
       width: 100%;
       background: var(--gold-bg);
@@ -322,7 +387,6 @@
       letter-spacing: -.05px;
     }
 
-    /* ── Bouton "Comprendre la règle" (déclencheur initial) ── */
     .demarrer-wrap {
       width: 100%;
       display: flex;
@@ -349,14 +413,8 @@
     }
     .btn-demarrer:active { transform: translateY(0); }
 
-    /* ── Effet typewriter ── */
-    .para-tw {
-      min-height: 0;
-    }
-    .para-tw:empty {
-      display: none;
-    }
-    /* Curseur clignotant pendant l'écriture */
+    .para-tw { min-height: 0; }
+    .para-tw:empty { display: none; }
     @keyframes blinkCursor {
       0%, 49% { opacity: 1; }
       50%, 100% { opacity: 0; }
@@ -372,7 +430,6 @@
       transform: translateY(2px);
     }
 
-    /* ── Bouton "Suivant →" entre paragraphes ── */
     @keyframes fadeInSuivant {
       from { opacity: 0; transform: translateY(6px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -404,7 +461,6 @@
       box-shadow: 0 4px 12px rgba(194,138,66,.25);
     }
 
-    /* ── Fraction affichée (cours guidé) ── */
     .frac-display {
       display: flex; flex-direction: column;
       align-items: center;
@@ -433,7 +489,6 @@
       letter-spacing: -.5px;
     }
 
-    /* ── Questions guidées ── */
     .questions-guidees {
       width: 100%;
       display: flex; flex-direction: column;
@@ -484,14 +539,14 @@
       text-align: center;
       letter-spacing: -.05px;
     }
-    .choix-btn:hover {
+    .choix-btn:hover:not(:disabled) {
       background: var(--gold-pale);
       border-color: var(--gold);
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(194,138,66,.15);
     }
+    .choix-btn:disabled { cursor: default; }
 
-    /* ── Champ libre (cours guidé) ── */
     .champ-libre-wrap {
       display: flex;
       gap: 10px;
@@ -573,7 +628,6 @@
       opacity: 1;
     }
 
-    /* ── Fraction inline dans choix QCM ── */
     .fi {
       display: inline-flex;
       flex-direction: column;
@@ -594,7 +648,6 @@
       border-radius: 2px;
     }
 
-    /* ══ QUIZ FINAL ════════════════════════════════════════════ */
     .quiz-carte {
       background: rgba(255,255,255,.62);
       backdrop-filter: blur(14px);
@@ -772,6 +825,7 @@
       <span class="header-sep">·</span>
       <span class="header-nom" id="header-nom">—</span>
     </div>
+    <button class="header-audio-toggle" id="header-audio-toggle" onclick="toggleAudioMode()" title="Activer la lecture audio" aria-label="Activer la lecture audio">🔇</button>
     <div class="header-dys-badge" id="header-dys-badge">Mode DYS</div>
   </div>
 
@@ -788,6 +842,10 @@
     <div class="carte anime">
       <div class="badge">Fiche remédiation · 3</div>
       <div class="titre">Simplifier<br><span class="accent">une fraction</span></div>
+      <button class="audio-toggle-card" id="audio-toggle-card" onclick="toggleAudioMode()" aria-label="Activer la lecture audio">
+        <span class="ico">🔇</span>
+        <span class="lbl">Activer la lecture audio</span>
+      </button>
       <button class="btn" onclick="versRetenir()">Commencer</button>
     </div>
   </div>
@@ -803,22 +861,18 @@
       <div class="regle-bloc" style="margin-bottom:0;">
         <div class="regle-label">La règle</div>
         <div class="regle-texte">
-          <!-- Bouton initial pour lancer l'animation -->
           <div class="demarrer-wrap" id="demarrer-wrap">
             <button class="btn-demarrer" onclick="demarrerLecture()">Comprendre la règle ✨</button>
           </div>
-          <!-- Les 3 paragraphes seront remplis par le typewriter -->
           <div class="para-tw" id="para-1"></div>
           <div class="para-tw" id="para-2" style="margin-top:16px;"></div>
           <div class="para-tw" id="para-3" style="margin-top:16px;"></div>
-          <!-- Bouton pour passer au paragraphe suivant -->
           <div class="suivant-wrap" id="suivant-wrap" style="display:none;">
             <button class="btn-suivant" onclick="suivantPara()">Suivant →</button>
           </div>
         </div>
       </div>
 
-      <!-- Bloc Exemple : caché jusqu'à la fin des 3 paragraphes -->
       <div id="bloc-exemple" style="display:none;width:100%;background:rgba(194,138,66,0.06);border-radius:14px;padding:20px 24px;margin-top:20px;opacity:0;transition:opacity 0.6s ease;">
         <div style="font-size:11px;font-weight:700;color:#B47A35;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:16px;">Exemple</div>
         <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center;">
@@ -845,7 +899,6 @@
         </div>
       </div>
 
-      <!-- Bouton final "Compris !" caché jusqu'à la fin -->
       <div id="bloc-compris" style="display:none;width:100%;justify-content:center;margin-top:28px;opacity:0;transition:opacity 0.6s ease;">
         <button onclick="versExercices()" style="padding:13px 48px;border-radius:12px;border:none;background:linear-gradient(180deg,#D4A464,#B47A35);font-family:'Inter Tight',sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;letter-spacing:-0.05px;color:#fff;transition:transform 0.15s,box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 8px 24px rgba(194,138,66,.35)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'">Compris !</button>
       </div>
@@ -895,7 +948,6 @@
         <div class="fq-n" id="fq-final-den">—</div>
       </div>
       <div id="zone-quiz-final"></div>
-      <div class="feedback" id="feedback-final"></div>
     </div>
   </div>
 
@@ -941,8 +993,6 @@
     const email     = params.get('email')      || '';
     const prof      = params.get('prof')       || '';
     const profEmail = params.get('prof_email') || '';
-    // ═══ DÉTECTION AUTOMATIQUE DU MODE DYS ═══
-    // L'espace élève transmet ?dys=1 dans l'URL si l'élève a coché "DYS" à l'inscription
     const dysActif = params.get('dys') === '1';
 
     document.getElementById('header-lycee').textContent        = lycee;
@@ -952,16 +1002,108 @@
     document.getElementById('prenom-final-revoir').textContent = nom.split(' ')[0];
     document.getElementById('prenom-bloque').textContent       = nom.split(' ')[0];
 
-    // Application automatique du mode DYS au chargement
     if (dysActif) {
       document.body.classList.add('dys');
       document.getElementById('header-dys-badge').classList.add('visible');
     }
 
     let nbTentativesFinales = 0;
-    // Les timings s'adaptent au mode DYS (feedbacks plus longs pour laisser le temps de lire)
     const TOK = () => dysActif ? 1500 : 700;
     const TKO = () => dysActif ? 2000 : 1200;
+
+    // ══ MODE AUDIO GLOBAL (Web Speech API) ═══════════════════════
+    let audioMode = false;
+    let voixFr = null;
+
+    function chargerVoix() {
+      const voix = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+      voixFr = voix.find(v => v.lang.startsWith('fr') && /natural|neural|premium|google|enhanced/i.test(v.name))
+            || voix.find(v => v.lang === 'fr-FR')
+            || voix.find(v => v.lang.startsWith('fr'))
+            || null;
+    }
+    if (window.speechSynthesis) {
+      chargerVoix();
+      window.speechSynthesis.onvoiceschanged = chargerVoix;
+    }
+
+    function nettoyerPourTTS(html) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return (tmp.textContent || tmp.innerText || '').trim();
+    }
+
+    function parler(html, options) {
+      options = options || {};
+      if (!window.speechSynthesis) return;
+      if (!audioMode && !options.force) return;
+      window.speechSynthesis.cancel();
+      const texte = nettoyerPourTTS(html);
+      if (!texte) return;
+      const utt = new SpeechSynthesisUtterance(texte);
+      utt.lang = 'fr-FR';
+      utt.rate = 0.92; utt.pitch = 1.0; utt.volume = 1.0;
+      if (voixFr) utt.voice = voixFr;
+      const headerBtn = document.getElementById('header-audio-toggle');
+      const cardBtn = document.getElementById('audio-toggle-card');
+      if (audioMode) {
+        if (headerBtn) headerBtn.classList.add('speaking');
+        if (cardBtn) cardBtn.classList.add('speaking');
+      }
+      utt.onend = () => {
+        if (headerBtn) headerBtn.classList.remove('speaking');
+        if (cardBtn) cardBtn.classList.remove('speaking');
+        if (options.onEnd) options.onEnd();
+      };
+      utt.onerror = () => {
+        if (headerBtn) headerBtn.classList.remove('speaking');
+        if (cardBtn) cardBtn.classList.remove('speaking');
+        if (options.onEnd) options.onEnd();
+      };
+      window.speechSynthesis.speak(utt);
+    }
+
+    function arreterLecture() {
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      const headerBtn = document.getElementById('header-audio-toggle');
+      const cardBtn = document.getElementById('audio-toggle-card');
+      if (headerBtn) headerBtn.classList.remove('speaking');
+      if (cardBtn) cardBtn.classList.remove('speaking');
+    }
+
+    function toggleAudioMode() {
+      audioMode = !audioMode;
+      const headerBtn = document.getElementById('header-audio-toggle');
+      const cardBtn = document.getElementById('audio-toggle-card');
+      if (audioMode) {
+        if (headerBtn) {
+          headerBtn.classList.add('active');
+          headerBtn.textContent = '🔊';
+          headerBtn.title = 'Désactiver la lecture audio';
+          headerBtn.setAttribute('aria-label', 'Désactiver la lecture audio');
+        }
+        if (cardBtn) {
+          cardBtn.classList.add('active');
+          cardBtn.querySelector('.ico').textContent = '🔊';
+          cardBtn.querySelector('.lbl').textContent = 'Audio activé — clique pour désactiver';
+          cardBtn.setAttribute('aria-label', 'Désactiver la lecture audio');
+        }
+      } else {
+        if (headerBtn) {
+          headerBtn.classList.remove('active', 'speaking');
+          headerBtn.textContent = '🔇';
+          headerBtn.title = 'Activer la lecture audio';
+          headerBtn.setAttribute('aria-label', 'Activer la lecture audio');
+        }
+        if (cardBtn) {
+          cardBtn.classList.remove('active', 'speaking');
+          cardBtn.querySelector('.ico').textContent = '🔇';
+          cardBtn.querySelector('.lbl').textContent = 'Activer la lecture audio';
+          cardBtn.setAttribute('aria-label', 'Activer la lecture audio');
+        }
+        arreterLecture();
+      }
+    }
 
     function sauvegarder(statut, score, tentativeNum, extra) {
       if (!email) return;
@@ -991,9 +1133,6 @@
     verifierProgression();
 
     // ── DONNÉES ─────────────────────────────────────────────────
-    // irreductible:true = pas de simplification possible
-    // diviseur = le plus grand diviseur commun
-    // resultat = {n, d} après simplification
     const FRACTIONS = [
       { n:3,  d:7,  irreductible:true,  diviseur:null, resultat:null },
       { n:2,  d:4,  irreductible:false, diviseur:2,    resultat:{n:1,d:2} },
@@ -1005,18 +1144,25 @@
 
     const ORDRE_FINAL = [1,3,5,0,4,2];
 
-    // ── EXERCICES GUIDÉS ─────────────────────────────────────────
     let fracIndex = 0, bloqueCours = false;
 
     function versRetenir() {
       allerVers('ecran-accueil','ecran-retenir');
-      // L'animation typewriter est maintenant déclenchée par le bouton "Comprendre la règle"
-      // (et non plus automatiquement à l'arrivée sur l'écran)
+      // Reset au cas où on y reviendrait
+      document.getElementById('demarrer-wrap').style.display = 'flex';
+      document.getElementById('demarrer-wrap').style.opacity = '1';
+      document.getElementById('para-1').innerHTML = '';
+      document.getElementById('para-2').innerHTML = '';
+      document.getElementById('para-3').innerHTML = '';
+      document.getElementById('suivant-wrap').style.display = 'none';
+      document.getElementById('bloc-exemple').style.display = 'none';
+      document.getElementById('bloc-exemple').style.opacity = '0';
+      document.getElementById('bloc-compris').style.display = 'none';
+      document.getElementById('bloc-compris').style.opacity = '0';
+      paraIndex = 0;
     }
 
-    // Déclencheur de l'animation : appelé par le bouton "Comprendre la règle"
     function demarrerLecture() {
-      // Cacher le bouton initial
       const dem = document.getElementById('demarrer-wrap');
       dem.style.transition = 'opacity 0.3s ease';
       dem.style.opacity = '0';
@@ -1028,8 +1174,6 @@
     }
     function versExercices() { allerVers('ecran-retenir','ecran-cours'); setTimeout(() => chargerFraction(0), 500); }
 
-    // ══ TYPEWRITER POUR L'ÉCRAN "À RETENIR" ══════════════════════
-    // Les 3 paragraphes de la règle (HTML, peut contenir des <strong>)
     const PARAGRAPHES_RETENIR = [
       'Certaines fractions peuvent s\'écrire de façon plus simple. On appelle ça <strong style="color:#C28A42;">simplifier</strong> une fraction.',
       'Pour simplifier, on divise le numérateur <strong>ET</strong> le dénominateur par un même nombre. On cherche le <strong style="color:#C28A42;">plus grand possible</strong> pour ne le faire qu\'une seule fois.',
@@ -1039,16 +1183,13 @@
     let paraIndex = 0;
     let twTimer = null;
 
-    // Écrit un paragraphe HTML caractère par caractère, mais insère les balises d'un coup
     function typewriter(elementId, html, charDelay, onDone) {
       const el = document.getElementById(elementId);
       el.innerHTML = '';
-      // Découper le HTML en "tokens" : soit une balise complète, soit un caractère
       const tokens = [];
       let i = 0;
       while (i < html.length) {
         if (html[i] === '<') {
-          // Trouver la fin de la balise
           const fin = html.indexOf('>', i);
           if (fin === -1) { tokens.push(html[i]); i++; continue; }
           tokens.push(html.substring(i, fin + 1));
@@ -1058,7 +1199,6 @@
           i++;
         }
       }
-      // Conteneur pour le texte écrit + curseur
       el.innerHTML = '<span class="tw-text"></span><span class="tw-cursor"></span>';
       const txtSpan = el.querySelector('.tw-text');
 
@@ -1067,7 +1207,6 @@
 
       function step() {
         if (idx >= tokens.length) {
-          // Fini : enlever le curseur, appeler onDone
           const cur = el.querySelector('.tw-cursor');
           if (cur) cur.remove();
           if (onDone) onDone();
@@ -1075,15 +1214,11 @@
         }
         const tok = tokens[idx];
         if (tok.startsWith('<')) {
-          // Balise : on l'ajoute d'un coup
-          written += tok;
-          idx++;
+          written += tok; idx++;
           txtSpan.innerHTML = written;
-          step(); // pas de délai pour les balises
+          step();
         } else {
-          // Caractère : on l'ajoute avec délai
-          written += tok;
-          idx++;
+          written += tok; idx++;
           txtSpan.innerHTML = written;
           twTimer = setTimeout(step, charDelay);
         }
@@ -1092,29 +1227,25 @@
     }
 
     function ecrireParagraphe(i) {
-      // Cacher le bouton "Suivant" pendant l'écriture
       document.getElementById('suivant-wrap').style.display = 'none';
       const id = 'para-' + (i + 1);
+      // Lit le paragraphe à voix haute pendant qu'il s'écrit
+      parler(PARAGRAPHES_RETENIR[i]);
       typewriter(id, PARAGRAPHES_RETENIR[i], 35, () => {
-        // À la fin de l'écriture : afficher bouton Suivant (sauf si dernier paragraphe : on déclenche la suite)
         if (i < PARAGRAPHES_RETENIR.length - 1) {
-          // Repositionner le bouton suivant *après* le paragraphe courant
-          const para = document.getElementById(id);
           const wrap = document.getElementById('suivant-wrap');
-          // Le bouton est déjà dans le DOM en bas du regle-bloc, on le réaffiche simplement
           wrap.style.display = 'flex';
-          // Re-lancer l'animation à chaque apparition
           wrap.style.animation = 'none';
           wrap.offsetHeight;
           wrap.style.animation = '';
         } else {
-          // Dernier paragraphe : afficher le bloc Exemple + bouton Compris
           afficherExempleEtCompris();
         }
       });
     }
 
     function suivantPara() {
+      arreterLecture();
       paraIndex++;
       if (paraIndex < PARAGRAPHES_RETENIR.length) {
         ecrireParagraphe(paraIndex);
@@ -1126,7 +1257,6 @@
       const compris = document.getElementById('bloc-compris');
       exemple.style.display = 'block';
       compris.style.display = 'flex';
-      // Force reflow puis fade-in
       exemple.offsetHeight;
       setTimeout(() => {
         exemple.style.opacity = '1';
@@ -1160,6 +1290,7 @@
         <div class="feedback-inline" id="fb-q1"></div>
       `;
       zone.appendChild(bloc);
+      parler('Cette fraction est-elle déjà irréductible ?');
     }
 
     function repQ1(choix, correct) {
@@ -1169,16 +1300,26 @@
       if (correct) {
         fb.textContent = f.irreductible ? '✓ Oui, on ne peut pas la simplifier !' : '✓ Exact, on peut la simplifier !';
         fb.className = 'feedback-inline correct';
+        parler(fb.textContent);
+        document.querySelectorAll('#q1-bloc .choix-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
+        if (f.irreductible) {
+          setTimeout(() => { bloqueCours = false; suiteExercice(); }, TOK());
+        } else {
+          setTimeout(() => { bloqueCours = false; afficherQ2(f); }, TOK());
+        }
       } else {
-        fb.textContent = f.irreductible ? '✗ Si, elle est déjà irréductible.' : '✗ Non, on peut encore la simplifier.';
+        // Mauvaise réponse : on grise seulement le bouton cliqué et on attend que l'élève retente
+        fb.textContent = f.irreductible ? '✗ Si, elle est déjà irréductible. Réessaie.' : '✗ Non, on peut encore la simplifier. Réessaie.';
         fb.className = 'feedback-inline faux';
-      }
-      document.querySelectorAll('#q1-bloc .choix-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
-      if (f.irreductible) {
-        // Fraction irréductible → paire suivante directement
-        setTimeout(() => { bloqueCours = false; suiteExercice(); }, TOK());
-      } else {
-        setTimeout(() => { bloqueCours = false; afficherQ2(f); }, TOK());
+        parler(fb.textContent);
+        const btns = document.querySelectorAll('#q1-bloc .choix-btn');
+        btns.forEach(b => { if (b.textContent.toLowerCase() === choix) { b.disabled = true; b.style.opacity = '0.5'; } });
+        setTimeout(() => {
+          fb.style.opacity = '0';
+          fb.className = 'feedback-inline';
+          fb.textContent = '';
+          bloqueCours = false;
+        }, TKO());
       }
     }
 
@@ -1198,8 +1339,8 @@
       `;
       zone.appendChild(bloc);
       bloc.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      parler('Par quel nombre peux-tu diviser le numérateur et le dénominateur ?');
       setTimeout(() => document.getElementById('champ-q2').focus(), 300);
-      // Valider avec Entrée
       document.getElementById('champ-q2').addEventListener('keydown', function(e) {
         if (e.key === 'Enter') repQ2(f.diviseur);
       });
@@ -1207,27 +1348,36 @@
 
     function repQ2(diviseur) {
       if (bloqueCours) return;
-      const val = parseInt(document.getElementById('champ-q2').value);
-      if (!val || val < 1) return;
+      const el = document.getElementById('champ-q2');
+      if (!el || el.disabled) return;
+      const raw = (el.value || '').trim();
+      if (raw === '') { el.focus(); return; }
+      const val = parseInt(raw, 10);
+      if (isNaN(val) || val < 1) { el.focus(); return; }
       bloqueCours = true;
       const fb = document.getElementById('fb-q2');
       const f  = FRACTIONS[fracIndex];
-      // Accepter n'importe quel diviseur commun valide (pas forcément le plus grand)
       const valide = val > 1 && f.n % val === 0 && f.d % val === 0;
       if (valide) {
-        // Si pas le plus grand, on accepte quand même mais on précise
         const isPgcd = val === diviseur;
         fb.textContent = isPgcd ? '✓ Parfait, c\'est le plus grand !' : '✓ Correct ! (il y en avait un plus grand : ' + diviseur + ')';
         fb.className = 'feedback-inline correct';
-        document.getElementById('champ-q2').disabled = true;
+        parler(fb.textContent);
+        el.disabled = true;
         document.querySelector('#q2-bloc .btn-valider').disabled = true;
         setTimeout(() => { bloqueCours = false; afficherQ3(f, val); }, TOK());
       } else {
         fb.textContent = val === 1 ? '✗ 1 divise tout, cherche un nombre plus grand.' : '✗ ' + val + ' ne divise pas les deux en même temps.';
         fb.className = 'feedback-inline faux';
-        bloqueCours = false;
-        document.getElementById('champ-q2').value = '';
-        document.getElementById('champ-q2').focus();
+        parler(fb.textContent);
+        setTimeout(() => {
+          fb.style.opacity = '0';
+          fb.className = 'feedback-inline';
+          fb.textContent = '';
+          bloqueCours = false;
+          el.value = '';
+          el.focus();
+        }, TKO());
       }
     }
 
@@ -1235,7 +1385,6 @@
       const zone = document.getElementById('questions-guidees');
       const rn = f.n / diviseurUtilise;
       const rd = f.d / diviseurUtilise;
-      // Générer 4 choix de fractions
       const bon = rn + '/' + rd;
       const mauvais = [
         (rn+1) + '/' + rd,
@@ -1260,6 +1409,7 @@
       `;
       zone.appendChild(bloc);
       bloc.scrollIntoView({ behavior:'smooth', block:'nearest' });
+      parler('La fraction simplifiée est ?');
     }
 
     function repQ3(choix, bon) {
@@ -1267,10 +1417,29 @@
       const fb = document.getElementById('fb-q3');
       const correct = choix === bon;
       const parts = bon.split('/');
-      fb.textContent = correct ? '✓ Bravo !' : '✗ Non, la bonne réponse est ' + parts[0] + '/' + parts[1] + '.';
-      fb.className = 'feedback-inline ' + (correct ? 'correct' : 'faux');
-      document.querySelectorAll('#q3-bloc .choix-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
-      setTimeout(() => { bloqueCours = false; suiteExercice(); }, TKO());
+      if (correct) {
+        fb.textContent = '✓ Bravo !';
+        fb.className = 'feedback-inline correct';
+        parler('Bravo !');
+        document.querySelectorAll('#q3-bloc .choix-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; });
+        setTimeout(() => { bloqueCours = false; suiteExercice(); }, TKO());
+      } else {
+        fb.textContent = '✗ Non, la bonne réponse est ' + parts[0] + ' sur ' + parts[1] + '. Réessaie.';
+        fb.className = 'feedback-inline faux';
+        parler(fb.textContent);
+        // On grise seulement le bouton cliqué
+        document.querySelectorAll('#q3-bloc .choix-btn').forEach(b => {
+          if (b.textContent.replace(/\s+/g,'') === choix.replace('/','')) {
+            b.disabled = true; b.style.opacity = '0.5';
+          }
+        });
+        setTimeout(() => {
+          fb.style.opacity = '0';
+          fb.className = 'feedback-inline';
+          fb.textContent = '';
+          bloqueCours = false;
+        }, TKO());
+      }
     }
 
     function suiteExercice() {
@@ -1284,88 +1453,81 @@
       }
     }
 
-    // ── QUIZ FINAL ───────────────────────────────────────────────
+    // ── QUIZ FINAL (tolérant aux mauvaises réponses) ─────────────
     let qFinalIndex = 0, bloqueFinal = false, bonnesRepFinal = 0;
-    let quizEtape = 'q1'; // 'q1' ou 'q2'
+    let q1EtaitJusteF = false; // pour les fractions non irréductibles : trace de la justesse de Q1
 
     function versQuizFinal() {
       allerVers('ecran-transition-final','ecran-quiz-final');
-      qFinalIndex = 0; bonnesRepFinal = 0; bloqueFinal = false;
+      qFinalIndex = 0; bonnesRepFinal = 0; bloqueFinal = false; q1EtaitJusteF = false;
       setTimeout(() => chargerQuestionFinale(0), 500);
     }
 
     function chargerQuestionFinale(i) {
-      bloqueFinal = false; quizEtape = 'q1';
+      bloqueFinal = false;
+      q1EtaitJusteF = false;
       const f = FRACTIONS[ORDRE_FINAL[i]];
       document.getElementById('prog-label-final').textContent = 'Fraction ' + (i+1) + ' / ' + FRACTIONS.length;
       document.getElementById('prog-fill-final').style.width  = (i / FRACTIONS.length * 100) + '%';
       document.getElementById('fq-final-num').textContent = f.n;
       document.getElementById('fq-final-den').textContent = f.d;
-      document.getElementById('feedback-final').className = 'feedback';
-      document.getElementById('feedback-final').innerHTML = '';
-      // Boutons Oui/Non
       document.getElementById('zone-quiz-final').innerHTML = `
         <div class="quiz-oui-non">
           <button class="quiz-oui-non-btn" onclick="repFinalQ1('oui',${f.irreductible})">Oui</button>
           <button class="quiz-oui-non-btn" onclick="repFinalQ1('non',${!f.irreductible})">Non</button>
         </div>
       `;
+      parler('Cette fraction est-elle déjà irréductible ?');
     }
 
+    // Q1 : on accepte la réponse sans feedback. Si juste + fraction irréductible → on enchaîne.
+    // Si juste + fraction simplifiable → on passe à Q2 (champ libre).
+    // Si fausse + fraction simplifiable → on passe quand même à Q2 pour donner la chance de trouver le diviseur (mais q1 est notée fausse).
+    // Si fausse + fraction irréductible → on enchaîne directement.
     function repFinalQ1(choix, correct) {
       if (bloqueFinal) return; bloqueFinal = true;
       const f = FRACTIONS[ORDRE_FINAL[qFinalIndex]];
-      const fb = document.getElementById('feedback-final');
-      if (correct) {
-        if (f.irreductible) {
-          // Bonne réponse + fraction irréductible → on passe directement
-          bonnesRepFinal++;
-          fb.textContent = '✓ Bonne réponse !';
-          fb.className = 'feedback correct';
-          setTimeout(() => suiteFinal(), TOK());
-        } else {
-          // Bonne réponse + pas irréductible → Q2 champ libre
-          fb.textContent = '✓ Exact ! Par quel nombre peux-tu diviser les deux ?';
-          fb.className = 'feedback correct';
-          document.getElementById('zone-quiz-final').innerHTML = `
-            <div class="quiz-champ-wrap">
-              <input class="quiz-champ" type="number" id="quiz-champ" min="1" placeholder="?" />
-              <button class="quiz-btn-valider" onclick="repFinalQ2(${f.diviseur})">Valider</button>
-            </div>
-          `;
-          setTimeout(() => document.getElementById('quiz-champ').focus(), 200);
-          document.getElementById('quiz-champ').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') repFinalQ2(f.diviseur);
-          });
-          bloqueFinal = false;
-        }
+      q1EtaitJusteF = correct;
+      if (f.irreductible) {
+        // Pour les fractions irréductibles, il n'y a que cette question — on compte si juste
+        if (correct) bonnesRepFinal++;
+        setTimeout(() => suiteFinal(), 250);
       } else {
-        fb.textContent = f.irreductible ? '✗ Si, elle est déjà irréductible.' : '✗ Non, on peut encore la simplifier.';
-        fb.className = 'feedback faux';
-        setTimeout(() => suiteFinal(), TKO());
+        // Fraction simplifiable : on passe à Q2 quoi qu'il arrive
+        document.getElementById('zone-quiz-final').innerHTML = `
+          <div class="quiz-champ-wrap">
+            <input class="quiz-champ" type="number" id="quiz-champ" min="1" placeholder="?" />
+            <button class="quiz-btn-valider" onclick="repFinalQ2(${f.diviseur})">Valider</button>
+          </div>
+        `;
+        const inp = document.getElementById('quiz-champ');
+        setTimeout(() => inp.focus(), 200);
+        inp.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') repFinalQ2(f.diviseur);
+        });
+        bloqueFinal = false;
+        parler('Par quel nombre peux-tu diviser les deux ?');
       }
     }
 
     function repFinalQ2(diviseur) {
       if (bloqueFinal) return;
-      const val = parseInt(document.getElementById('quiz-champ').value);
-      if (!val || val < 1) return;
+      const el = document.getElementById('quiz-champ');
+      if (!el || el.disabled) return;
+      const raw = (el.value || '').trim();
+      if (raw === '') { el.focus(); return; }
+      const val = parseInt(raw, 10);
+      if (isNaN(val) || val < 1) { el.focus(); return; }
       bloqueFinal = true;
-      const f   = FRACTIONS[ORDRE_FINAL[qFinalIndex]];
-      const fb  = document.getElementById('feedback-final');
+      const f = FRACTIONS[ORDRE_FINAL[qFinalIndex]];
       const valide = val > 1 && f.n % val === 0 && f.d % val === 0;
-      if (valide) {
+      // On compte la question juste seulement si Q1 ET Q2 étaient correctes
+      if (q1EtaitJusteF && valide) {
         bonnesRepFinal++;
-        fb.textContent = val === diviseur ? '✓ Parfait !' : '✓ Correct ! (le plus grand était ' + diviseur + ')';
-        fb.className = 'feedback correct';
-        setTimeout(() => suiteFinal(), TOK());
-      } else {
-        fb.textContent = val === 1 ? '✗ 1 divise tout, cherche plus grand.' : '✗ ' + val + ' ne divise pas les deux.';
-        fb.className = 'feedback faux';
-        bloqueFinal = false;
-        document.getElementById('quiz-champ').value = '';
-        document.getElementById('quiz-champ').focus();
       }
+      el.disabled = true;
+      // Pas de feedback intermédiaire : on enchaîne directement
+      setTimeout(() => suiteFinal(), 250);
     }
 
     function suiteFinal() {
